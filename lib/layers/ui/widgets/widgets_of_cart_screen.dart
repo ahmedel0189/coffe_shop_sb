@@ -2,61 +2,60 @@ import 'package:coffee_shop_sb/constants/my_colors.dart';
 import 'package:coffee_shop_sb/layers/data/models/coffee_model.dart';
 import 'package:coffee_shop_sb/layers/data/models/coffee_shop_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class WidgetsOfShopScreen {
-  Widget buildOrderText({
-    required String pagetext,
-  }) {
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        pagetext,
-        style: GoogleFonts.lobster(
-          fontSize: 24,
-          color: MyColors.myGnavColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
-  Widget buildListOfTheCoffee(
-    CoffeeShopModel value, {
-    required Icon icon,
-  }) {
+class WidgetsOfCartScreen {
+  Widget buildCartList(
+    CoffeeShopModel value,
+    BuildContext context,
+  ) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: value.coffeeShop.length,
-        itemBuilder: (context, index) {
-          CoffeeModel eachCoffee =
-              value.coffeeShop[index];
-          return buildCoffeeListTail(
-            eachCoffee: eachCoffee,
-            onPressed: () => addTocart(
-              context,
-              coffee: eachCoffee,
-              icon: icon
+      child: value.userCart.isEmpty
+          ? Center(
+              child: Text(
+                "Your cart is empty ☕",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.myGnavColor,
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: value.userCart.length,
+              itemBuilder: (context, index) {
+                CoffeeModel eachCoffee = value.userCart[index];
+                return buildCartItem(
+                  eachCoffee: eachCoffee,
+                  onPressed: () => removeFromCart(
+                    context,
+                    coffee: eachCoffee,
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 
-  void addTocart(
+  void removeFromCart(
     BuildContext context, {
     required CoffeeModel coffee,
-    required Icon icon,
   }) {
     Provider.of<CoffeeShopModel>(
       context,
       listen: false,
-    ).addItemToCart(coffee);
+    ).removeItemToCart(coffee);
+
+    // SnackBar feedback
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${coffee.coffeeName} removed from cart"),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
-  Widget buildCoffeeListTail({
+  Widget buildCartItem({
     required CoffeeModel eachCoffee,
     required VoidCallback onPressed,
   }) {
@@ -86,11 +85,13 @@ class WidgetsOfShopScreen {
         ),
         leading: Image.asset(
           eachCoffee.coffeeImage,
+          height: 50,
+          width: 50,
         ),
         trailing: IconButton(
           icon: Icon(
-            Icons.add,
-            color: MyColors.myGnavColor,
+            Icons.remove,
+            color: Colors.red,
           ),
           onPressed: onPressed,
         ),

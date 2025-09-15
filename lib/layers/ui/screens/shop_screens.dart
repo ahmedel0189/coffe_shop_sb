@@ -1,4 +1,5 @@
 // import 'package:coffee_shop_sb/constants/my_colors.dart';
+import 'package:coffee_shop_sb/constants/my_colors.dart';
 import 'package:coffee_shop_sb/layers/data/models/coffee_shop_model.dart';
 import 'package:coffee_shop_sb/layers/ui/widgets/widgets_of_shop_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,20 @@ class ShopScreens extends StatelessWidget {
             padding: EdgeInsets.all(20),
             child: Column(
               children: [
-                WidgetsOfShopScreen()
-                    .buildOrderText(),
+                WidgetsOfShopScreen().buildOrderText(
+                  pagetext:
+                      'How Would You Like Your Coffee ?',
+                ),
                 const SizedBox(height: 25),
-                WidgetsOfShopScreen().buildListOfTheCoffee(value),
+                WidgetsOfShopScreen()
+                    .buildListOfTheCoffee(
+                      value,
+                      icon: Icon(
+                        Icons.add,
+                        color:
+                            MyColors.myGnavColor,
+                      ),
+                    ),
               ],
             ),
           ),
