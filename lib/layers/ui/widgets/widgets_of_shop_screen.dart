@@ -2,7 +2,6 @@ import 'package:coffee_shop_sb/constants/my_colors.dart';
 import 'package:coffee_shop_sb/layers/data/models/coffee_model.dart';
 import 'package:coffee_shop_sb/layers/data/models/coffee_shop_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class WidgetsOfShopScreen {
@@ -13,8 +12,9 @@ class WidgetsOfShopScreen {
       alignment: Alignment.center,
       child: Text(
         pagetext,
-        style: GoogleFonts.lobster(
-          fontSize: 24,
+        style: TextStyle(
+          fontFamily: 'lobster',
+          fontSize: 20,
           color: MyColors.myGnavColor,
           fontWeight: FontWeight.bold,
         ),
@@ -37,7 +37,7 @@ class WidgetsOfShopScreen {
             onPressed: () => addTocart(
               context,
               coffee: eachCoffee,
-              icon: icon
+              icon: icon,
             ),
           );
         },
