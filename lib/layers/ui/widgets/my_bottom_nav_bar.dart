@@ -2,7 +2,7 @@ import 'package:coffee_shop_sb/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class MyWidgets {
+class MyBottomNavBar {
   Widget buildBottomNavigationBar({
     required Function(int)? onTabChange,
   }) {
