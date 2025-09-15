@@ -1,1 +1,1 @@
-const homePageRoutr = '/home_page';
+const homePageRoutr = '/';
