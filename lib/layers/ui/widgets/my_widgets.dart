@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MyWidgets {
-  Widget buildBottomNavigationBar() {
+  Widget buildBottomNavigationBar({
+    required Function(int)? onTabChange,
+  }) {
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
@@ -12,6 +14,7 @@ class MyWidgets {
         borderRadius: BorderRadius.circular(24),
       ),
       child: GNav(
+        onTabChange: onTabChange,
         padding: EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 16,
